@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Task Tracker{% endblock %}</title>
+    {% load staticfiles %}
+    <link href="data:image/x-icon;base64,AAABAAEAEBAAAAAAAABoBAAAFgAAACgAAAAQAAAAIAAAAAEAIAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAB/f38GAAAALQAAADcAAAA3AAAANwAAADcAAAA3AAAANwAAADcAAAA3AAAANwAAADcAAAA3AAAANwAAACn///8Af39/CQAAAFIml7zvF5jD/yKaxP8clsD/Eo67/yeWv/8Zjbn/Io+6//8RAP8pj7j/Joy2/xpgfLoAAAAP////AH9/fwAQUGR6G6DK/yeavv8UiK//KI+z/yiOsP8Vg6r/FYCn//8RAL3/EQD//xEAvRODr/8ljLb/AAAAD////wB/f38AGVhqiTKt0////////v7+//39/f/8/Pz//Pv7//8RAL3/EQD/+fn4//8RAP8Yf6b/JpC6/wAAABP///8Af39/ABFXa4keqtP//v79/5OTk/90dHT/+/v7//8RAL3/EQD/p6am/25ubv//EQC9/xEA/zKawf8AAAAT////AH9/fwAYW26JHK3W//38/P/8/Pv/+/v6//r6+f//EQD/+fj4//f39v/39/b/9/b1//8RAP//EQD/AAAAE////wB/f38AFlxviR2y2//8+/v/JZcl/x2PHf8+sT7/SJ5I/1KLUv9LmUr/TZRM/0m0SP8qj7P//xEA//8RAP////8Af39/ABNdcYkyveH/+/r6//r5+f/5+fj/+Pj3//j39v/39vX/9vX0//X18//09PL/Go2y/0Wu0P//EQD/////AH9/fwASX3OJJ77j//r5+P8llyT/HY8d/z6xPv9Si1L/Q6dC/0WiRf9MlEz/SLRI/yaWuP8/rtL/AAAAE////wB/f38AG2R1iSnC5//5+Pf/+Pf2//f29f/29vT/9fXz//X08v/08/L/8/Lx//Lx8P8elrr/TrfY/wAAABP///8Af39/ABRkdokyye3/+Pf2//f29f/29fT/9fXz//T08v/08/H/8/Lw//Lx7//x8O7/JJy+/0+73P8AAAAT////AH9/fwAaaHmJIsnv//b29f9ERET/9fTz/7W1tf9ubm7/tbW1/25ubv9ubm7/8O/t/x6dwf9hxuL/AAAAE////wB/f38AG2l6iTPR9P/19fP/9fXz//X18//z8vH/8vHw//X18//x8O7/8O/t/+/u7P8iosX/Ycjl/wAAABP///8Af39/ABtmd3pb2/f/qdjg//Tz8f9ERET/RERE/0RERP9ERET/RERE/0RERP/u7ev/MrPV/1rJ5v8AAAAP////AH9/fwAAAAAEE2V3ehBneokYaXqJGGl6iURERP9ERET/RERE/0RERP8gVGCJG2J0iRFecogQU2NNAAAAAf///wB/f38AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAARERE/0RERP8AAAAAAAAAAAAAAAAAAAAAAAAAAP///wD///8A//8AAMADAADAAwAAgAMAAIADAACAAwAAgAEAAIABAACAAwAAgAMAAIADAACAAwAAgAMAAMADAADgBwAA/n8AAA=="
+          rel="icon" type="image/x-icon"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+    <link href='https://fonts.googleapis.com/css?family=Satisfy' rel='stylesheet' type='text/css'>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="{% static 'todo/style.css' %}"/>
+    <style type="text/css">
+        .dropbtn {
+            background-color: #f8f8f8;
+            border-right: thin solid gray;
+            color: gray;
+            padding: 14px 14px 12px 4px;
+            font-size: 15px;
+            border: none;
+            cursor: pointer;
+        }
+
+        /* Dropdown button on hover & focus */
+        .dropbtn:hover, .dropbtn:focus {
+            color: black;
+        }
+
+        /* The container <div> - needed to position the dropdown content */
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+
+        /* Dropdown Content (Hidden by Default) */
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #f8f8f8;
+            min-width: 160px;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+            z-index: 1;
+        }
+
+        /* Links inside the dropdown */
+        .dropdown-content a {
+            color: gray;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+        }
+
+        /* Change color of dropdown links on hover */
+        .dropdown-content a:hover {
+            color: black;}
+
+        /* Show the dropdown menu (use JS to add this class to the .dropdown-content container when the user clicks on the dropdown button) */
+        .show {display:block;}
+
+    </style>
+    <script>
+        function myFunction() {
+            document.getElementById("myDropdown").classList.toggle("show");
+        }
+
+        // Close the dropdown menu if the user clicks outside of it
+        window.onclick = function(event) {
+          if (!event.target.matches('.dropbtn')) {
+
+            var dropdowns = document.getElementsByClassName("dropdown-content");
+            var i;
+            for (i = 0; i < dropdowns.length; i++) {
+              var openDropdown = dropdowns[i];
+              if (openDropdown.classList.contains('show')) {
+                openDropdown.classList.remove('show');
+              }
+            }
+          }
+        }
+    </script>
+
+    {% block extracss %}
+    {% endblock %}
+    ﻿
+</head>
+<body>
+<nav class="navbar navbar-default">
+    <div class="container-fluid">
+        <div class="nav-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#topNavBar">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/home">Task Tracker</a>
+
+        </div>
+
+        <div class="collapse navbar-collapse" id="topNavBar">
+             <ul class="nav navbar-nav">
+                <li style="border-left: thin solid gray; border-right: thin solid gray;">
+                    <a href="/todo/create">
+                        <span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span>&nbsp; Create Task
+                    </a>
+                </li>
+
+                 <li class="dropdown">
+
+                      <button onclick="myFunction()" class="dropbtn" >
+                          <span class="glyphicon glyphicon-filter" aria-hidden="true" style="padding-left: 7px; color: gray"></span>&nbsp; Filter
+                      </button>
+                      <div id="myDropdown" class="dropdown-content" style="display: none;">
+                        <a href="{% url 'todo:index' %}">All</a>
+                        <a href="{% url 'todo:not-start' %}">Not Started</a>
+                        <a href="{% url 'todo:in-progress' %}">Ongoing</a>
+                         <a href="{% url 'todo:done' %}">Completed</a>
+                      </div>
+                 </li>
+             </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li style="padding-top:15px; padding-bottom: 15px; font-size: 14px;">
+                    <span class="glyphicon glyphicon-user" aria-hidden="true"></span>&nbsp; {{ user.username }}
+                </li>
+                <li class="">
+                    <a href="/logout">
+                        <span class="glyphicon glyphicon-off" aria-hidden="true"></span>&nbsp; Logout
+                    </a>
+                </li>
+            </ul>
+        </div>
+
+    </div>
+</nav>
+
+{% block body %}
+{% endblock %}
+</body>
+</html>
